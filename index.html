@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tanya Kiran — Backend Engineer</title>
+<meta name="description" content="Tanya Kiran — Backend Engineer in Bengaluru building scalable, well-observed systems in Java and Spring Boot. Microservices, REST APIs, RabbitMQ, observability." />
+<meta name="keywords" content="Tanya Kiran, backend engineer, Java, Spring Boot, microservices, portfolio, Bengaluru" />
+<meta property="og:title" content="Tanya Kiran — Backend Engineer" />
+<meta property="og:description" content="Java & Spring Boot backend engineer building microservices that serve 10K+ daily users." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0E14; --bg-2:#0d121a; --panel:#121925; --panel-2:#0f1620;
+    --line:#1d2735; --line-soft:#161f2b;
+    --ink:#E7EEF6; --muted:#8a97a8; --muted-2:#5d6b7d;
+    --accent:#5EE6C5; --accent-deep:#2dd4bf; --accent-glow:rgba(94,230,197,.14);
+    --amber:#f5b544;
+    --maxw:1080px;
+    --ff-display:"Space Grotesk",system-ui,sans-serif;
+    --ff-body:"Inter",system-ui,sans-serif;
+    --ff-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--bg);color:var(--ink);font-family:var(--ff-body);
+    line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  body::before{ /* ambient grid */
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),
+                     linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(circle at 50% 0,#000,transparent 70%);
+            mask-image:radial-gradient(circle at 50% 0,#000,transparent 70%);
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:1}
+  .mono{font-family:var(--ff-mono)}
+
+  /* ---------- NAV ---------- */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+    background:rgba(10,14,20,.72);border-bottom:1px solid var(--line-soft)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px;
+    max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .brand{font-family:var(--ff-mono);font-weight:600;font-size:15px;letter-spacing:.5px}
+  .brand b{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-family:var(--ff-mono);font-size:13px;color:var(--muted);transition:color .2s;position:relative}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-22px;height:2px;background:var(--accent)}
+  .nav-cta{border:1px solid var(--accent);color:var(--accent)!important;padding:7px 14px;border-radius:6px}
+  .nav-cta:hover{background:var(--accent-glow)}
+  .burger{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px}
+  .burger svg{width:24px;height:24px}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:96px 0 72px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .eyebrow{font-family:var(--ff-mono);font-size:13px;color:var(--accent);letter-spacing:1px;
+    display:inline-flex;align-items:center;gap:9px;margin-bottom:20px}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 0 var(--accent-glow);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(94,230,197,.5)}70%{box-shadow:0 0 0 9px rgba(94,230,197,0)}100%{box-shadow:0 0 0 0 rgba(94,230,197,0)}}
+  h1{font-family:var(--ff-display);font-size:clamp(40px,6.5vw,68px);line-height:1.02;font-weight:700;letter-spacing:-1.5px}
+  .hero .lead{font-size:clamp(18px,2.4vw,22px);color:var(--ink);margin:18px 0 10px;max-width:34ch;font-weight:500}
+  .hero .lead em{color:var(--accent);font-style:normal}
+  .hero p.sub{color:var(--muted);max-width:46ch;margin-bottom:30px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{font-family:var(--ff-mono);font-size:13.5px;padding:12px 20px;border-radius:8px;
+    border:1px solid var(--line);color:var(--ink);transition:.2s;display:inline-flex;align-items:center;gap:8px}
+  .btn:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .btn.primary{background:var(--accent);color:#05201a;border-color:var(--accent);font-weight:600}
+  .btn.primary:hover{box-shadow:0 8px 30px -8px var(--accent)}
+
+  /* status panel (signature) */
+  .panel{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);
+    border-radius:14px;padding:18px;font-family:var(--ff-mono);box-shadow:0 30px 60px -30px #000}
+  .panel-head{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted-2);
+    padding-bottom:14px;border-bottom:1px solid var(--line-soft);margin-bottom:16px}
+  .panel-head .led{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .panel-head .ok{margin-left:auto;color:var(--accent)}
+  .spark{height:64px;width:100%;margin-bottom:16px}
+  .spark path.line{fill:none;stroke:var(--accent);stroke-width:2;
+    stroke-dasharray:600;stroke-dashoffset:600;animation:draw 2.6s ease forwards .3s}
+  .spark path.area{fill:url(#g);opacity:0;animation:fade 1.2s ease forwards 1.8s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes fade{to{opacity:.55}}
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tile{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:9px;padding:12px 13px}
+  .tile .v{font-size:21px;color:var(--ink);font-weight:600;letter-spacing:-.5px}
+  .tile .v span{color:var(--accent)}
+  .tile .k{font-size:10.5px;color:var(--muted-2);text-transform:uppercase;letter-spacing:1px;margin-top:3px}
+  @media (prefers-reduced-motion:reduce){.spark path.line{animation:none;stroke-dashoffset:0}.spark path.area{animation:none;opacity:.55}}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:80px 0;position:relative}
+  .sec-label{font-family:var(--ff-mono);font-size:13px;color:var(--accent);letter-spacing:1px;margin-bottom:14px}
+  .sec-label b{color:var(--muted-2);font-weight:400}
+  h2{font-family:var(--ff-display);font-size:clamp(28px,4vw,40px);font-weight:600;letter-spacing:-1px;margin-bottom:8px}
+  .sec-intro{color:var(--muted);max-width:60ch;margin-bottom:40px}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:40px}
+  .about-grid p{color:var(--muted);margin-bottom:16px}
+  .about-grid p strong{color:var(--ink);font-weight:600}
+  .facts{font-family:var(--ff-mono);font-size:13px;align-self:start;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 18px}
+  .facts div{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .facts div:last-child{border:0}
+  .facts .k{color:var(--muted-2)}.facts .val{color:var(--ink)}
+
+  /* experience timeline */
+  .xp{display:grid;gap:18px}
+  .xp-item{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px 26px;
+    border-left:3px solid var(--accent);transition:.25s}
+  .xp-item.minor{border-left-color:var(--line);opacity:.92}
+  .xp-item:hover{transform:translateX(4px);border-left-color:var(--accent)}
+  .xp-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline}
+  .xp-role{font-family:var(--ff-display);font-size:20px;font-weight:600}
+  .xp-co{color:var(--accent);font-weight:500}
+  .xp-date{font-family:var(--ff-mono);font-size:12.5px;color:var(--muted-2);white-space:nowrap}
+  .xp ul{list-style:none;margin-top:14px;display:grid;gap:8px}
+  .xp li{color:var(--muted);padding-left:22px;position:relative;font-size:15px}
+  .xp li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
+  .xp li b{color:var(--ink);font-weight:600}
+
+  /* skills */
+  .skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .skill-cat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+  .skill-cat.soft{grid-column:1 / -1;border-left:3px solid var(--accent)}
+  .skill-cat.soft h3{color:var(--accent)}
+  .skill-cat h3{font-family:var(--ff-mono);font-size:12px;color:var(--muted-2);letter-spacing:1.5px;
+    text-transform:uppercase;margin-bottom:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-family:var(--ff-mono);font-size:12.5px;color:var(--ink);background:var(--bg-2);
+    border:1px solid var(--line-soft);border-radius:6px;padding:6px 11px;transition:.2s}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* projects */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px;
+    display:flex;flex-direction:column;transition:.25s;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:.3s}
+  .card:hover{transform:translateY(-4px);border-color:var(--line)}
+  .card:hover::before{opacity:1}
+  .card .tag{font-family:var(--ff-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px}
+  .card.fe .tag{color:var(--amber)}
+  .card h3{font-family:var(--ff-display);font-size:21px;font-weight:600;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:14.5px;margin-bottom:16px;flex:1}
+  .stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+  .stack span{font-family:var(--ff-mono);font-size:11px;color:var(--muted);background:var(--bg-2);
+    border:1px solid var(--line-soft);border-radius:5px;padding:4px 8px}
+  .links{display:flex;gap:16px;font-family:var(--ff-mono);font-size:13px}
+  .links a{color:var(--accent);display:inline-flex;align-items:center;gap:6px}
+  .links a:hover{text-decoration:underline}
+  .links a.ghost{color:var(--muted)}
+  /* project thumbnails */
+  .thumb{height:152px;width:100%;border-radius:10px;margin-bottom:18px;overflow:hidden;
+    border:1px solid var(--line-soft);background:var(--bg-2);object-fit:cover;display:block}
+  .thumb.ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;
+    font-family:var(--ff-mono);color:var(--muted-2);font-size:11.5px;line-height:1.6;
+    background:radial-gradient(circle at 28% 22%,rgba(94,230,197,.12),transparent 60%),var(--bg-2)}
+  .thumb.code{height:152px;padding:16px 18px;font-family:var(--ff-mono);font-size:12px;line-height:1.95;
+    color:var(--muted);background:linear-gradient(180deg,#0c121b,#0a0e14);overflow:hidden}
+  .thumb.code .m{display:block}
+  .thumb.code b{color:var(--accent);font-weight:600;display:inline-block;width:46px}
+  .thumb.code .c{color:var(--muted-2)}
+  /* featured professional work */
+  .featured{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px}
+  .arch{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:12px;padding:22px 18px;
+    display:flex;flex-direction:column;gap:14px;align-items:center}
+  .arch-row{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap}
+  .node{font-family:var(--ff-mono);font-size:11.5px;line-height:1.35;text-align:center;color:var(--ink);
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 12px}
+  .node.accent{border-color:var(--accent);color:var(--accent)}
+  .node.wide{width:100%;color:var(--muted)}
+  .arrow{color:var(--muted-2);font-family:var(--ff-mono)}
+  .bus{font-family:var(--ff-mono);font-size:11px;color:var(--accent);text-align:center}
+  .arch-cap{font-family:var(--ff-mono);font-size:10.5px;color:var(--muted-2);letter-spacing:.5px;margin-top:2px}
+  .feat-eyebrow{font-family:var(--ff-mono);font-size:12px;color:var(--accent);margin-bottom:8px}
+  .feat-body h3{font-family:var(--ff-display);font-size:23px;font-weight:600;margin-bottom:10px}
+  .feat-body>p{color:var(--muted);margin-bottom:14px}
+  .feat-list{list-style:none;display:grid;gap:8px;margin-bottom:18px}
+  .feat-list li{color:var(--muted);font-size:14.5px;padding-left:22px;position:relative}
+  .feat-list li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
+  .feat-list li b{color:var(--ink);font-weight:600}
+  /* activity */
+  .activity{text-align:center}
+  .activity .chart{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:26px;overflow-x:auto}
+  .activity .chart img{max-width:100%;height:auto;filter:saturate(1.1)}
+  .activity .note{font-family:var(--ff-mono);font-size:12px;color:var(--muted-2);margin-top:14px}
+
+  /* education */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .edu{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+  .edu .yr{font-family:var(--ff-mono);font-size:12px;color:var(--accent);margin-bottom:8px}
+  .edu h3{font-family:var(--ff-display);font-size:19px;font-weight:600}
+  .edu p{color:var(--muted);font-size:14px;margin-top:4px}
+
+  /* contact */
+  .contact{text-align:center;padding-bottom:40px}
+  .contact h2{margin-bottom:14px}
+  .contact .sec-intro{margin:0 auto 28px}
+  .contact .mail{font-family:var(--ff-display);font-size:clamp(22px,4vw,34px);color:var(--accent);
+    display:inline-block;margin-bottom:24px;border-bottom:1px solid transparent;transition:.2s}
+  .contact .mail:hover{border-color:var(--accent)}
+  .socials{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .socials a{font-family:var(--ff-mono);font-size:13px;color:var(--muted);border:1px solid var(--line);
+    padding:10px 18px;border-radius:8px;transition:.2s}
+  .socials a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+
+  footer{border-top:1px solid var(--line-soft);padding:30px 0;text-align:center}
+  footer p{font-family:var(--ff-mono);font-size:12.5px;color:var(--muted-2)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;gap:36px;padding:64px 0 48px}
+    .about-grid,.skill-grid,.proj-grid,.edu-grid,.featured{grid-template-columns:1fr}
+    .nav-links{position:fixed;inset:64px 0 auto 0;flex-direction:column;background:var(--bg-2);
+      border-bottom:1px solid var(--line);padding:20px 24px;gap:18px;transform:translateY(-130%);
+      transition:transform .3s;align-items:flex-start}
+    .nav-links.open{transform:none}
+    .nav-links a.active::after{display:none}
+    .burger{display:block}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="brand" href="#home">tanya<b>.kiran</b></a>
+    <button class="burger" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <div class="nav-links" id="menu">
+      <a href="#home">home</a>
+      <a href="#experience">experience</a>
+      <a href="#skills">skills</a>
+      <a href="#work">work</a>
+      <a href="https://drive.google.com/file/d/1b6DMDTHczBfkQZAQedI4RW4mfVfDhj_b/view?usp=sharing" target="_blank" rel="noopener">resume ↗</a>
+      <a class="nav-cta" href="#contact">contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Backend Engineer · Bengaluru, India</span>
+      <h1>Tanya Kiran</h1>
+      <p class="lead">I build <em>scalable, well-observed</em> backend systems in Java &amp; Spring Boot.</p>
+      <p class="sub">Associate Software Developer building microservices in a distributed system — focused on clean REST APIs, efficient queries, and reliable, traceable services.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#work">View work</a>
+        <a class="btn" href="https://drive.google.com/file/d/1b6DMDTHczBfkQZAQedI4RW4mfVfDhj_b/view?usp=sharing" target="_blank" rel="noopener">Download résumé</a>
+        <a class="btn" href="https://github.com/tanuk11" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+    <!-- signature: service status panel -->
+    <div class="panel" aria-hidden="true">
+      <div class="panel-head"><span class="led"></span> service: tanya-kiran <span class="ok">● available</span></div>
+      <svg class="spark" viewBox="0 0 300 64" preserveAspectRatio="none">
+        <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#5EE6C5" stop-opacity=".5"/>
+          <stop offset="1" stop-color="#5EE6C5" stop-opacity="0"/>
+        </linearGradient></defs>
+        <path class="area" d="M0,48 L20,44 L45,50 L70,30 L95,36 L120,20 L150,28 L175,14 L205,24 L235,12 L265,20 L300,8 L300,64 L0,64 Z"/>
+        <path class="line" d="M0,48 L20,44 L45,50 L70,30 L95,36 L120,20 L150,28 L175,14 L205,24 L235,12 L265,20 L300,8"/>
+      </svg>
+      <div class="tiles">
+        <div class="tile"><div class="v">REST</div><div class="k">api design</div></div>
+        <div class="tile"><div class="v">RabbitMQ</div><div class="k">messaging</div></div>
+        <div class="tile"><div class="v">Docker</div><div class="k">deployment</div></div>
+        <div class="tile"><div class="v">Grafana</div><div class="k">observability</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="sec-label"><b>01 —</b> about</p>
+      <h2>Backend by craft, not by accident</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div>
+        <p>I'm a backend engineer building distributed systems in Java and Spring Boot. My day-to-day spans REST API design, SQL optimization, event-driven messaging with RabbitMQ, and end-to-end observability with OpenTelemetry, Prometheus, and Grafana.</p>
+        <p>I moved into engineering deliberately — an intensive backend program at <strong>Masai School</strong> after my BCA, then a full-time role where I now own services in production. I care about systems that are <strong>fast, reliable, and easy to debug</strong>, and I like turning vague performance problems into measured wins.</p>
+        <p>Currently open to backend engineering roles, remote or hybrid.</p>
+      </div>
+      <div class="facts">
+        <div><span class="k">role</span><span class="val">Backend Engineer</span></div>
+        <div><span class="k">stack</span><span class="val">Java · Spring Boot</span></div>
+        <div><span class="k">based in</span><span class="val">Bengaluru, IN</span></div>
+        <div><span class="k">status</span><span class="val">Open to work</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="reveal">
+      <p class="sec-label"><b>02 —</b> experience</p>
+      <h2>Where I've shipped</h2>
+    </div>
+    <div class="xp reveal">
+      <div class="xp-item">
+        <div class="xp-top">
+          <div class="xp-role">Associate Software Developer · <span class="xp-co">Amplicomm</span></div>
+          <div class="xp-date">Nov 2024 — Present</div>
+        </div>
+        <ul>
+          <li>Built and deployed <b>Java &amp; Spring Boot microservices</b> on PostgreSQL within a distributed system.</li>
+          <li>Improved API response times through <b>SQL query optimization and caching</b>.</li>
+          <li>Introduced an <b>event-driven architecture</b> with RabbitMQ and Docker for asynchronous, decoupled services.</li>
+          <li>Set up centralized logging and tracing with <b>OpenTelemetry, Logstash, Prometheus, and Grafana</b> to monitor and quickly diagnose issues.</li>
+        </ul>
+      </div>
+      <div class="xp-item minor">
+        <div class="xp-top">
+          <div class="xp-role">Account Manager · <span class="xp-co">Sellergeni</span></div>
+          <div class="xp-date">Jan 2024 — Aug 2024</div>
+        </div>
+        <ul>
+          <li>Managed Amazon PPC campaigns and turned performance data into actionable client recommendations — sharpening the user-and-impact lens I bring to API design.</li>
+        </ul>
+      </div>
+      <div class="xp-item minor">
+        <div class="xp-top">
+          <div class="xp-role">Learner Success Manager · <span class="xp-co">Simplilearn</span></div>
+          <div class="xp-date">Jul 2023 — Dec 2023</div>
+        </div>
+        <ul>
+          <li>Facilitated cybersecurity training and gave technical guidance to learners — where I confirmed engineering was the path I wanted to commit to.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <p class="sec-label"><b>03 —</b> skills</p>
+      <h2>The toolkit</h2>
+      <p class="sec-intro">Grouped the way I actually use them — from writing the service to keeping it observable in production.</p>
+    </div>
+    <div class="skill-grid reveal">
+      <div class="skill-cat"><h3>Languages</h3><div class="chips"><span class="chip">Java</span><span class="chip">SQL</span></div></div>
+      <div class="skill-cat"><h3>Frameworks</h3><div class="chips"><span class="chip">Spring Boot</span><span class="chip">Spring Data JPA</span><span class="chip">Hibernate</span></div></div>
+      <div class="skill-cat"><h3>Databases</h3><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MySQL</span></div></div>
+      <div class="skill-cat"><h3>Messaging</h3><div class="chips"><span class="chip">RabbitMQ</span><span class="chip">Apache Kafka</span></div></div>
+      <div class="skill-cat"><h3>DevOps &amp; Cloud</h3><div class="chips"><span class="chip">Docker</span><span class="chip">AWS</span><span class="chip">Git</span><span class="chip">GitHub</span></div></div>
+      <div class="skill-cat"><h3>Observability</h3><div class="chips"><span class="chip">OpenTelemetry</span><span class="chip">Prometheus</span><span class="chip">Grafana</span><span class="chip">Logstash</span></div></div>
+      <div class="skill-cat"><h3>Architecture &amp; APIs</h3><div class="chips"><span class="chip">REST APIs</span><span class="chip">Microservices</span><span class="chip">Event-driven</span></div></div>
+      <div class="skill-cat"><h3>Testing &amp; Tools</h3><div class="chips"><span class="chip">JUnit</span><span class="chip">Mockito</span><span class="chip">Postman</span><span class="chip">Jira</span></div></div>
+      <div class="skill-cat soft"><h3>Soft Skills</h3><div class="chips"><span class="chip">Problem-solving</span><span class="chip">Clear communication</span><span class="chip">Ownership</span><span class="chip">Collaboration</span><span class="chip">Continuous learning</span><span class="chip">Time management</span><span class="chip">Attention to detail</span><span class="chip">Adaptability</span></div></div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="reveal">
+      <p class="sec-label"><b>04 —</b> work</p>
+      <h2>Professional work</h2>
+      <p class="sec-intro">A unified view of what I build day to day and what I've shipped on my own — backend services, full-stack experiments, and front-end projects.</p>
+    </div>
+
+    <!-- Featured: real Amplicomm work, shown with an illustrative architecture diagram (not a screenshot) -->
+    <div class="featured reveal">
+      <div class="arch" aria-hidden="true">
+        <div class="arch-row">
+          <span class="node">Clients</span><span class="arrow">→</span>
+          <span class="node accent">REST API</span><span class="arrow">→</span>
+          <span class="node">Spring Boot<br>microservices</span><span class="arrow">→</span>
+          <span class="node">PostgreSQL</span>
+        </div>
+        <div class="bus">⇅&nbsp; RabbitMQ event bus &nbsp;·&nbsp; Docker containers</div>
+        <div class="arch-row">
+          <span class="node wide">Observability — OpenTelemetry · Prometheus · Grafana · Logstash</span>
+        </div>
+        <div class="arch-cap">system architecture · illustrative</div>
+      </div>
+      <div class="feat-body">
+        <p class="feat-eyebrow">Amplicomm · Associate Software Developer</p>
+        <h3>Backend microservices platform</h3>
+        <p>The systems I work on day to day — Spring Boot services in a distributed backend, communicating over REST and asynchronous messaging, with full observability so problems are quick to find.</p>
+        <ul class="feat-list">
+          <li>Designed and built <b>Java &amp; Spring Boot microservices</b> backed by PostgreSQL.</li>
+          <li>Built and tuned <b>REST APIs</b> with SQL optimization and caching.</li>
+          <li>Introduced <b>event-driven messaging</b> with RabbitMQ; containerized services with Docker.</li>
+          <li>Set up <b>observability</b> — OpenTelemetry tracing, Prometheus/Grafana metrics, Logstash logs.</li>
+        </ul>
+        <div class="stack"><span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>RabbitMQ</span><span>Docker</span><span>Grafana</span></div>
+      </div>
+    </div>
+
+    <!-- Unified projects grid: all other projects, professional + personal, in one row -->
+    <div class="proj-grid reveal" style="margin-top:30px">
+      <div class="card fe">
+        <img class="thumb" src="assests/fit-meal-screenshot.png" alt="Fit Meal screenshot">
+        <div class="tag">Front-end · Personal</div>
+        <h3>Fit Meal</h3>
+        <p>A product website with login/sign-up, cart, search, and checkout flows.</p>
+        <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <div class="links"><a href="https://first-meal.vercel.app/" target="_blank" rel="noopener">↗ Live</a><a class="ghost" href="https://github.com/tanuk11/first_meal" target="_blank" rel="noopener">⟨ Code ⟩</a></div>
+      </div>
+      <div class="card fe">
+        <img class="thumb" src="assests/zee5-screenshot.png" alt="Zee5 Clone screenshot">
+        <div class="tag">Front-end · Personal</div>
+        <h3>Zee5 Clone</h3>
+        <p>A streaming UI with social sign-in, content browsing, and user authentication.</p>
+        <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <div class="links"><a href="https://portfolio-hutg.vercel.app/" target="_blank" rel="noopener">↗ Live</a><a class="ghost" href="https://github.com/tanuk11/Project_Zee5" target="_blank" rel="noopener">⟨ Code ⟩</a></div>
+      </div>
+      <div class="card fe">
+        <img class="thumb" src="assests/youtube.png" alt="Mini YouTube screenshot">
+        <div class="tag">Front-end · Personal</div>
+        <h3>Mini YouTube</h3>
+        <p>A lightweight video app — search anything and play YouTube videos inline.</p>
+        <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <div class="links"><a class="ghost" href="https://github.com/tanuk11/mini_Youtube" target="_blank" rel="noopener">⟨ Code ⟩</a></div>
+      </div>
+    </div>
+
+    <!-- GitHub activity: real data, auto-updates from your commits -->
+    <div class="activity reveal" style="margin-top:56px">
+      <p class="sec-label"><b>04.1 —</b> recent activity</p>
+      <h2>What I've been building lately</h2>
+      <p class="sec-intro" style="margin:0 auto 28px">Live contribution graph straight from my GitHub — it updates on its own as I push code.</p>
+      <a class="chart" href="https://github.com/tanuk11" target="_blank" rel="noopener" style="display:block">
+        <img src="https://ghchart.rshah.org/5EE6C5/tanuk11" alt="Tanya Kiran's GitHub contribution graph" loading="lazy">
+      </a>
+      <p class="note">github.com/tanuk11 — click to view repositories</p>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="reveal">
+      <p class="sec-label"><b>05 —</b> education</p>
+      <h2>Foundations</h2>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu">
+        <div class="yr">2022</div>
+        <h3>Java Backend Development</h3>
+        <p>Masai School — intensive, project-based backend engineering program.</p>
+      </div>
+      <div class="edu">
+        <div class="yr">2018 — 2021</div>
+        <h3>Bachelor of Computer Applications (BCA)</h3>
+        <p>Nalanda College, Patliputra University.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="reveal">
+      <p class="sec-label"><b>06 —</b> contact</p>
+      <h2>Let's build something reliable</h2>
+      <p class="sec-intro">Open to backend engineering roles, remote or hybrid. The fastest way to reach me is email.</p>
+      <a class="mail" href="mailto:tanyakiran5@gmail.com">tanyakiran5@gmail.com</a>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/tanya-kiran-72988322b/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/tanuk11" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="tel:+917061000746">+91 70610 00746</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="wrap">© 2026 Tanya Kiran — built &amp; deployed by hand.</p>
+</footer>
+
+<script>
+  // mobile menu
+  const burger=document.querySelector('.burger'), menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // scroll reveal
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // graceful placeholder if a project screenshot hasn't been added yet
+  document.querySelectorAll('img.thumb').forEach(img=>{
+    img.addEventListener('error',()=>{
+      const d=document.createElement('div');
+      d.className='thumb ph';
+      d.textContent='Add screenshot → '+img.getAttribute('src');
+      img.replaceWith(d);
+    });
+  });
+
+  // scrollspy
+  const links=[...document.querySelectorAll('.nav-links a[href^="#"]')];
+  const map=links.map(l=>({l,sec:document.querySelector(l.getAttribute('href'))})).filter(x=>x.sec);
+  const spy=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));
+      const m=map.find(x=>x.sec===e.target); if(m&&!m.l.classList.contains('nav-cta'))m.l.classList.add('active')}
+  }),{rootMargin:'-45% 0px -50% 0px'});
+  map.forEach(x=>spy.observe(x.sec));
+</script>
+</body>
+</html>
